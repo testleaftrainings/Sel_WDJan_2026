@@ -1,0 +1,119 @@
+Method Signature:
+
+
+📝 Java Class Fundamentals: How Methods, Objects, and Variables Work Together
+
+🔷 1. Class
+
+	A blueprint that defines variables (data) and methods (behavior).
+
+
+🔷 2.Local Variables(Fields / Attributes)
+
+	Method variables:Declared inside the method
+
+   2A.Global Variables (Fields / Attributes)
+
+	Instance variables: Declared inside the class but outside any method.
+
+	They hold the state of each object.
+
+	🧠 When to Use Global Variables:
+
+-------->The data represents the state of the object.
+ 
+---------->You need to use the same data across multiple methods.
+
+------------->You want cleaner method signatures (no repetitive passing of parameters).
+
+------------------>Methods and  global varibales were properties of the class
+
+✅ Purpose of Variables in Real Testing Projects
+A variable stores data that can be reused or changed later in the test.
+
+🔹 Why we use variables?
+
+1. Data Storage – Hold input test data like String username = "admin";
+2. Dynamic Handling – Can store values read from external files (Excel, JSON, Properties)
+3. Parameterization – Store values that can be changed based on test case
+4. Readability & Debugging – Easier to debug and read instead of hardcoding values
+5. Flexibility – Values can be changed during runtime (e.g., in data-driven testing)
+
+🔷 3. Methods
+
+	Define the actions or behaviors that can be performed using the object's data (variables).
+
+	Can access and modify instance variables.
+
+✅ Purpose of Methods in Real Testing Projects
+
+A method is a reusable block of code that performs a specific action.
+
+🔹 Why we use methods?
+
+1. Reusability – To avoid repeating the same code again and again.
+e.g., login(username, password) can be reused in many test cases.
+
+2. Modularity – Breaks large test flows into small, manageable steps.
+e.g., clickButton(), enterText(), verifyText()
+
+3. Maintainability – If the UI changes, we only need to update the method, not every test case.
+
+4. Readability – Methods with meaningful names make test cases easy to understand.
+e.g., clickLoginButton() is more readable than writing code directly in the test.
+
+5. Separation of concerns – Test logic is separated from implementation (as in Page Object Model).
+
+🔷 4. Object
+
+	An instance of the class.
+
+	It gets its own copy of instance variables.
+
+	Used to call methods and access variables.
+
+🧱 In Java, everything is class-based.
+Java supports two kinds of methods:
+
+1) Instance methods (most common)
+
+2) Static methods
+
+✅ 1. Instance Methods – Require Object Creation
+
+💡 Why?
+Because instance methods belong to an instance (object) of a class, not the class itself. They need access to non-static fields (i.e., data unique to each object).
+
+🤔 Why make methods instance-based?
+
+ --- follow OOP principles like encapsulation and abstraction
+ --- for real-world entities with state and behavior, object creation is necessary.
+
+🚫 2. Static Methods – Do NOT Need Object Creation
+
+💡 Why?
+Because static methods belong to the class itself, not to any specific object.
+
+🔷 5. Constructor
+
+	A special method used to initialize object variables when the object is created.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
