@@ -1,0 +1,255 @@
+
+Recap :--
+Absolute xpath :
+syntax : / root tag
+/html/body/div[2]/div[2]/div/form/p[1]/input - username
+/html/body/div[2]/div[2]/div/form/p[2]/input - password
+/html/body/div[2]/div[2]/div/form/p[3] - login 
+/html/body/div[3]/div[2]/div/form/p[3]/input
+
+--------------------------------------------------------------------------------------
+Relative xpath:
+###Basic xpath
+
+1)Attribute based xpath @
+
+Syntax: //tagname[@attribute='attributeValue'] 
+        //input[@class='decorativeSubmit']
+		
+//input[@id='username']
+
+
+📌 When to Use:
+
+1)The HTML element has a unique or stable attribute.
+
+2)Ideal for login fields, dropdowns, buttons, checkboxes when attributes are unique.
+
+💡 Best choice when the attribute value is stable and unique.
+
+Example://label[@for ='username']
+	 	//label[@for='password']
+
+*******************************************************
+2)Text based xpath  ()
+ >text<
+
+Syntax: //tagname[text()='text value'] 
+//label[text()='Username']
+
+
+//span[text()='Basic']
+
+📌 When to Use:
+
+1) When element text is static and visible to the user.
+
+2) Works well for buttons, headers, tabs, links where text content is unique
+
+💡 Easy to understand and highly readable, but avoid if text might change dynamically
+
+Example://h2[text()='Leaftaps Login'] 
+		//span[text()='Learn More'] 
+		//a[text()='Commerce Setup Assistant']
+********************************************************
+3)Functions based xpath
+
+Leverages functions  syntax like:
+//tagname[contains(@attributeName,'attributeValue')]
+
+
+
+
+
+//button[contains(@class,'mvm')]
+A) contains() :
+contains(condition for the partial match)
+
+returns elements with partial matches, 
+
+📌 When to Use:
+
+1) Attribute values are long or dynamic, and you only need to match part of it.
+
+2) Used frequently in dynamic pages, like dashboards or search results.
+
+Example: //div[contains(@class, ‘header’)].
+
+
+B) Partial text based xpath:
+
+syntax: //tagname[contains(text(),'partial text')] 
+//button[contains(text(),'Up')]
+
+📌 When to Use:
+
+1) Text or attribute is partially predictable, like menu names or module links.
+
+2) Often used when only part of a name is constant across builds.
+
+Example: //a[contains(text(),'Lightning E')]
+
+
+
+Partial Attribute based xpath
+
+syntax: //tagname[starts-with(@attributeName,'partial attribute value')] 
+
+Example: //button[starts-with(@class,'ui-state-disabled')]
+
+*************************************************************************
+4)Collection based xpath
+
+Syntax: (any xpath)[index] Index will starts from 1 
+(//button[contains(text(),'Up')])[2]
+
+📌 When to Use:
+
+1) When multiple similar elements are present and you want a specific one.
+
+2) Common in table rows, repeated buttons, radio buttons, etc.
+
+⚠️ Indexing should be used only when no better unique identifier is available, and the structure is stable.
+
+Example: (//span[@class=' label bBody'])[3] 
+	(//span[text()='Login'])[2]
+
+--------------------------------------------------------------------------------------
+XPath Type	     |	Ideal For
+-------------------------------------------------------------------------------------
+Attribute Based	 |	Most reliable for unique inputs, buttons, checkboxes
+Text Based	 	 |	Tabs, buttons, headers, visible static elements
+contains()	 	 |	Dynamic classes/IDs, partial attribute matching
+Partial Text	 |	Menu items, labels with long/variable content
+Collection with Index|	Tables, multiple buttons with same label
+--------------------------------------------------------------------------------------
+
+
+*************************************************************************************
+✅ Real-Time Use Cases for XPath Axes:
+
+
+1️) parent:: – When child has no unique data, but parent does
+
+🎯 Use Case:
+You know the child tag (like <label>) and want to reach its parent <div> or vice versa.
+
+//form[@id='login_form']/label
+
+// XPATH OF Parent tag / child tagname
+
+
+//label[@for='password']/parent::form
+
+// XPATH OF child tag/ parent::Parent tagname
+
+2) ancestor:: – Move up the DOM tree
+
+//form[@id='login_form']//label --> T2B
+
+ //label[text()='Username']/ancestor::form --> B2T
+
+🎯 Use Case:
+You find a child node but need to click or validate a container card/div.
+
+3)following:: | preceding:: – Find elements anywhere after/before
+
+
+//input[@id='username']/following::label -- > T2B
+
+//label[text()='Password']/preceding::input--> B2T
+
+🎯 Use Case:
+you found a label but want to jump to a different kind of element later.
+
+⚖️ Comparison: preceding:: vs ancestor::
+---------------------------------------------------------------------------------------------------------------------------------------
+Aspect		      |			preceding::					     |			ancestor::
+-----------------------------------------------------------------------------------------------------------------------------------------
+🔁 Traversal Direction  Goes upward + left (document order, not necessarily direct parent)	Goes strictly upward (only through the parent hierarchy)
+📍 Type of nodes		Selects all nodes before the current node in the DOM			Selects only parent, grandparent,(i.e.the chain of parents)
+📐 Relationship		Not limited to hierarchy — can select siblings, previous elements	Hierarchy-based — only parents
+🎯 Use case		Find labels, sections, or data that comes before the element		Find a parent container, form, div wrapping the element
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+⚖️ Comparison: following:: vs grandparent//grandChildTag
+---------------------------------------------------------------------------------------------------------------------------------------------
+Aspect	               |		following::					     |		grandparent//grandChildTag
+---------------------------------------------------------------------------------------------------------------------------------------------
+🔁 Traversal Direction | Moves forward in document order, from the current node onward	     |   Moves downward in DOM hierarchy, starting from a known ancestor
+📐 Relation	           | Not limited to child or hierarchy, just "any tag that appears after"|	Strictly hierarchical: goes from known parent/ancestor to nested children
+🔍 Scope	              | All nodes that appear after current one, in entire document	     |   Scoped within a subtree under the grandparent
+🎯 Use case	       | Find next field, button, or message	                             |   Find nested elements from a common container
+================================================================================================================================================
+
+4)following-sibling:: | preceding-sibling:: – To go forward and backwards 
+
+//label[text()='Password']/following-sibling::input --> T2B
+
+//input[@id='password']/preceding-sibling::label --> B2T
+
+🎯 Use Case:
+You see a value, but you want the label or name before it.
+
+🔑 When to use Axes in Real Projects:
+----------------------------------------------------------------------------------------------------------------
+Scenario							     |      Use XPath Axis
+----------------------------------------------------------------------------------------------------------------
+Child element is easy to locate, but parent has the clickable area   |	parent::, ancestor::
+Two elements are side by side					     |	following-sibling::, preceding-sibling::
+Deep nested structure or tables					     |	following::, preceding::
+-----------------------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------
+###Verification Methods: 
+
+isSelected() – how it works in Selenium
+
+Explanation : 
+
+isSelected() checks the selection state of a web element.
+Internally, Selenium verifies the HTML state of selectable elements, not CSS styles.
+
+It works only for:
+
+1) <input type="checkbox">
+
+2) <input type="radio">
+
+3) <option> inside <select>
+
+What Selenium checks internally:
+
+For checkbox / radio → presence of the checked attribute ="true/false"
+
+For option → presence of the selected attributYe
+
+If the attribute is present (or true), isSelected() returns true, else false.
+
+
+
+--------------------------------------------------------------------------------------
+advance : JAVA 
+
+OOPS, Collection, Static, final , super , this, .
+
+
+----------------------------------------------------------------
+
+“what is happening”--> process-oriented model-->code acting on data.
+Code is a set of instructions written to manipulate or process data. This includes reading input, performing calculations or logic, and producing output.
+
+
+“who is being affected.”--->object-oriented programming -->data controlling access to code.
+
+🔹 In OOP, data and behavior are bundled together in classes and objects.
+So when we say "data controls access to code", in OOP it shows up in several ways:
+
+
+✅ 1. Access Modifiers (Encapsulation)
+In OOP, we use access modifiers (private, public, protected) to control access to data and methods from outside the class.
+✅ 2. Polymorphism / Method Overriding with Conditions
+A subclass can decide whether or not to allow certain behavior based on internal data (state).
