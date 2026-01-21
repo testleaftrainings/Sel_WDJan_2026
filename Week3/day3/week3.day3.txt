@@ -1,0 +1,251 @@
+---------------------------------------------------------------------------
+Queue & Deque (FIFO or LIFO)
+
+A)Queue – FIFO (First-In-First-Out) order.
+Example: LinkedList, PriorityQueue (orders based on priority).
+
+B)Deque – Can be FIFO or LIFO(Last-In-First-Out).
+Example: ArrayDeque, LinkedList.
+
+-----------------------
+List Interface in Java:
+
+Here are some key characteristics and methods associated with the List interface:
+
+1. Ordered Collection:
+   - Lists maintain the order in which elements are inserted. The order of elements in a list is determined by the sequence in which they were added.
+
+2. Duplicates Allowed:
+   - List allows duplicate elements. Each element in the list has a unique index, starting from 0.
+
+3. Dynamic Size:
+   - Lists can dynamically grow or shrink in size as elements are added or removed. The size of a list is not fixed.
+
+4. Common List Implementations:
+   - ArrayList: Implements a dynamic array that can grow or shrink in size. Provides fast random access and is suitable for scenarios where elements are frequently accessed.
+   - LinkedList: Implements a doubly-linked list. Provides efficient insertion and deletion of elements at any position in the list.
+
+wrapper class : specifically designed to wrap primitive data types
+EX:
+dataType -  wrapper class
+============================
+int      -  Integer
+double   -  Double
+
+
+5. Common Methods:
+   - add: Adds an element to the list.
+👉Adding Items (add() method):
+
+Usage: To add elements to the list.
+Real-time Use Case: This is used when you need to add new data to your collection. For example, adding new members to a project team or new items to a to-do list.
+
+👉Inserting at Specific Index (add(index, element)):
+
+Usage: To add an element at a specified position in the list.
+Real-time Use Case: Useful in cases where the order is important, like adding a new task at a specific position in a task list or inserting a new chapter into a specific position in a book's table of contents.
+
+👉Adding All Elements from Another List (addAll()):
+
+Usage: To add all elements from one list into another.
+Real-time Use Case: Merging two datasets, such as combining two lists of customers from different regions into a single list for a unified analysis.
+
+   - get: Retrieves the element at a specified index.
+👉Accessing Elements (get(index)):
+
+Usage: To retrieve a specific element from the list based on its index.
+Real-time Use Case: Fetching a specific data entry, such as retrieving a specific order detail from a list of orders.
+
+   - remove: Removes an element from the list.
+👉Removing Elements (remove(index) and removeAll()):
+
+Usage: remove(index) removes an element at a specific index, while removeAll() removes all elements that are present in another collection.
+Real-time Use Case: remove(index) can be used for deleting a specific entry, like removing a discontinued product from a product list. removeAll() can be useful in filtering out data, like removing all outdated items from a current inventory list.
+
+👉Clearing the List (clear()):
+
+Usage: To remove all elements from the list, making it empty.
+Real-time Use Case: Resetting data, such as clearing a user's shopping cart after they have completed the checkout process.
+
+
+
+   - size: Returns the number of elements in the list.
+👉Finding the Size of the List (size() method):
+
+Usage: To get the number of elements in the list.
+Real-time Use Case: Checking the number of entries in a database, like the number of students enrolled in a course or the number of items in stock.
+
+   - contains: Checks if a specific element is present in the list
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------
+
+
+1. ArrayList 📚
+
+What it is: A dynamic array that grows as you add more items.
+
+
+Real-world use: Think of it like a shopping list. You can add, remove, or check items easily.
+
+Real-World Example: A Bookshelf
+
+You can add or remove books at any position.
+
+Want the 5th book? Just count and grab it!
+
+
+
+
+
+
+2. LinkedList 🔗
+What it is: A list where each item is connected to the next (like a chain).
+
+Real-world use: Imagine a line of people waiting for a bus. You can easily add or remove someone from the line.
+
+Real-World Example: Train Carriages 🚄
+
+Each carriage is linked to the next. Add/remove carriages easily, but finding the 10th carriage takes time!
+
+3. HashMap 🗺️
+What it is: A key-value pair storage (like a dictionary).
+
+Real-world use: Think of a phonebook where you look up a name (key) to find a number (value).
+
+Real-World Example: Friend Status Updates 📱
+
+Imagine a social media app where:
+
+Usernames (keys) are linked to their latest status (value).
+
+Want to see Alex’s status? Just search his name! No need to scroll through everyone!
+
+
+
+4. HashSet 🔢
+What it is: A collection of unique items (no duplicates allowed).
+
+Real-world use: Imagine a bag of unique marbles. You can’t have two marbles of the same color.
+
+Social Media "Likes" ❤️
+
+You can’t like the same post twice!
+
+----
+🔗 LinkedHashSet
+Real-World Example: Unique Playlist Songs 🎵
+
+A playlist with no duplicate songs that stays in the order you added them.
+
+
+5. TreeSet 🌳
+What it is: A sorted set that keeps items in order.
+
+Real-world use: Think of a leaderboard where scores are automatically sorted from lowest to highest
+
+Real-World Example: Classroom Height Chart
+
+Automatically sorts students from shortest to tallest.
+
+Add heights: 160cm, 150cm → Sorted as 150, 160!
+
+6. Stack 📚
+What it is: A Last-In-First-Out (LIFO) structure (like a stack of plates).
+
+Real-world use: Imagine an undo feature in a text editor. The last action you did is the first one to be undone.
+
+Real-World Example: Cafeteria Plate Stack
+
+Last plate added is the first one you take (LIFO).
+
+Example: Plates added: Plate1 → Plate2 → Plate2 is removed first!
+
+
+7. Queue 🎫
+What it is: A First-In-First-Out (FIFO) structure (like a ticket counter).
+
+Real-world use: Think of a printer queue. The first document sent to the printer is the first one to be printed.
+
+Real-World Example: Lunch Line
+
+First student in line gets food first (FIFO).
+
+Alice joins → Bob joins → Alice gets food first!
+
+
+8.🔐 Base64
+Real-World Example: Email Attachments 📧
+
+When you send a photo via email, it gets converted to text (Base64) because emails can’t send raw binary data.
+
+Like translating a book into Morse code to send via telegraph!
+
+
+9.🧩 BitSet
+Real-World Example: Light Switch Panel 💡
+
+Represents a row of switches (bits) that can be turned ON/OFF efficiently.
+
+
+10. AbstractCollection, AbstractList, AbstractMap 🛠️
+What it is: Base classes to create custom collections, lists, or maps.
+
+Real-world use: Imagine building your own special toolbox. These are the basic tools you start with to create something unique.
+
+
+==============================================================================================================================
+-----------------------------------------------------------------------------------------------------------------------------
+Feature	    |	 	remove(Object o)    |	removeAll(Collection<?> c)		|			clear()
+===============================================================================================================================
+Purpose     |	Remove one specific element 	Remove all matching elements from another collection	Remove all elements from the collection
+Argument    |	A single object			A collection (List/Set etc.)				No arguments
+Action	    | Removes first occurrence only	Removes all that match					Empties the whole collection
+Return Type |	boolean (true/false)		boolean (true/false)					void (nothing)
+Size after action|	May decrease by 1	Decreases by number of matching items			Becomes 0
+
+
+
+1. clear() 🧹
+What it does: Removes all elements from the collection.
+
+Parameters: None.
+
+Return type: void (doesn’t return anything).
+
+Use case: When you want to empty the entire collection.
+
+
+2. removeAll() 🗑️
+What it does: Removes only the elements that exist in another collection you provide.
+
+Parameters: A collection of elements to remove.
+
+Return type: boolean (returns true if the collection changed).
+
+Use case: When you want to remove specific elements (based on another collection).
+
+
+
+
+-------------------------------------------------------------------
+Key Points About Implicit Wait:
+
+1)Global Setting:
+It applies to all find_element and find_elements calls throughout the driver session.
+
+2)Polling Mechanism:
+Selenium checks the DOM repeatedly (usually every 500 milliseconds) until the timeout.
+
+3)Non-blocking:
+If the element is found early, it doesn’t wait for the entire timeout.
+
+4)Drawback:
+Implicit wait can slow down your test if overused because it applies to all elements. It’s not as flexible as Explicit Wait, which targets specific conditions.
+
+-----------------------------------------------------------------------------------------------------------
