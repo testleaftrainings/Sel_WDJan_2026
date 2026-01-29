@@ -1,0 +1,168 @@
+
+
+What is a Plugin? 
+
+ 
+
+A plugin is a software add-on that is installed on a program to add a specific feature to an existing computer program. When a program supports plugins, it enables customization. 
+
+In the Eclipse, a plugin like TestNG can be installed to extend its capabilities to manage and run tests more effectively. 
+
+-----------------------------------------------------
+Welcome to TestNG : 
+
+TestNG is a testing framework inspired from JUnit and NUnit but introducing some new functionalities that make it more powerful and easier to use, such as:
+
+1) Run your tests in arbitrarily big thread pools with various policies available (all methods in their own thread, one thread per test class, etc…​).
+
+2) Test that your code is multithread safe.
+
+3) Flexible test configuration.
+
+4) Support for data-driven testing (with @DataProvider).
+
+5) Support for parameters.
+
+6) Powerful execution model (no more TestSuite).
+
+7) Supported by a variety of tools and plug-ins (Eclipse, IDEA, Maven, etc…​).
+
+8) Embeds BeanShell for further flexibility.
+
+9) Default JDK functions for runtime and logging (no dependencies).
+
+10) Dependent methods for application server testing.
+
+
+1.1. Requirements
+
+
+TestNG Upto v7.5: JDK 8.
+
+TestNG v7.6.0 and above: JDK 11 or higher.
+
+TestNG Eclipse Plugin Update Site
+Main update site URL: https://testng.org/testng-eclipse-update-site
+
+Versioned update site URL: https://testng.org/testng-eclipse-update-site/
+
+Standard version : https://testng.org/testng-eclipse-update-site/7.4.0
+
+
+
+1.2. Introduction
+
+
+TestNG is a testing framework designed to simplify a broad range of testing needs, from unit testing (testing a class in isolation of the others) to integration testing (testing entire systems made of several classes, several packages and even several external frameworks, such as application servers).
+
+Writing a test is typically a three-step process:
+
+1) Write the business logic of your test and insert TestNG annotations in your code.
+
+2) Add the information about your test (e.g. the class name, the groups you wish to run, etc…​) in a testng.xml file or in build.xml.
+
+3) Run TestNG.
+
+Steps to start with TestNG: 
+
+Convert normal script into a TestNG script: 
+
+*Remove static keyword from the main method 
+
+*Remove the input arguments(String[] args) 
+
+*Give a meaningful name to the method 
+
+*Add @Test on the top of the method 
+
+**Import from org.testng.annotations. 
+
+*Right click on the testcase Run as-> 1 TestNG Test 
+
+
+1.3. Documentation
+
+
+The concepts used in this documentation are as follows:
+
+#<suite>: A suite is represented by one XML file. It can contain one or more tests and is defined by the <suite> tag.
+
+#<test>: A test is represented by <test> and can contain one or more TestNG classes.
+
+#<class>: A TestNG class is a Java class that contains at least one TestNG annotation. It is represented by the <class> tag and can contain one or more test methods.
+
+# A test method is a Java method annotated by @Test in your source
+
+
+################## Parallel Execution ################################
+
+
+
+| `<suite parallel>` | `<test parallel>` | Thread-Control | Execution Flow Type                                             |
+| ------------------ | ----------------- | -------------- | --------------------------------------------------------------- |
+| `classes`          | (ignored)         | Suite-level    | All classes globally                                            |
+| `tests`            | (ignored)         | Suite-level    | Tests run in parallel                                           |
+| `none`             | `classes`         | Per test       | Each test runs sequentially, but classes inside run in parallel |
+| 'tests'            |  'classes'        | at suite -> Tests |   2*2 = 4                                 |
+                                          at test--> classess
+
+------------
+✅ 1. <suite parallel="classes" thread-count="2">
+
+<suite parallel="classes" thread-count="2">
+    <test name="Group1">
+        <classes>TestClass1 to TestClass5</classes>
+    </test>
+    <test name="Group2">
+        <classes>TestClass6 to TestClass10</classes>
+    </test>
+</suite>
+
+👉 TestNG runs all classes in all <test>s, 2 at a time
+
+T1: TestClass1 → TestClass3 → TestClass5 → TestClass7 → TestClass9
+T2: TestClass2 → TestClass4 → TestClass6 → TestClass8 → TestClass10
+
+
+✅ 2. <suite parallel="tests" thread-count="2">
+Each <test> runs in parallel (not classes inside).
+
+<suite parallel="tests" thread-count="2">
+    <test name="Group1">
+        <classes>TestClass1 to TestClass5</classes>
+    </test>
+    <test name="Group2">
+        <classes>TestClass6 to TestClass10</classes>
+    </test>
+</suite>
+
+🚀 Execution (both tests start in parallel):
+T1: Group1: TestClass1 → TestClass2 → TestClass3 → TestClass4 → TestClass5
+T2: Group2: TestClass6 → TestClass7 → TestClass8 → TestClass9 → TestClass10
+
+
+✅ 3. <suite parallel="none">, but <test parallel="classes" thread-count="2">
+
+<suite parallel="none">
+    <test name="Group1" parallel="classes" thread-count="2">
+        <classes>TestClass1 to TestClass5</classes>
+    </test>
+    <test name="Group2" parallel="classes" thread-count="2">
+        <classes>TestClass6 to TestClass10</classes>
+    </test>
+</suite>
+
+📦 Sequential test groups, but classes inside each test run in parallel
+
+Group1 runs first:
+T1: TestClass1 → TestClass3 → TestClass5
+T2: TestClass2 → TestClass4
+
+Then Group2:
+T1: TestClass6 → TestClass8 → TestClass10
+T2: TestClass7 → TestClass9
+
+
+
+
+
