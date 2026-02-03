@@ -1,0 +1,46 @@
+--------------------------------------
+Annotation Attributes
+
+1) alwaysRun 
+
+
+For before methods (beforeSuite, beforeTest, beforeTestClass and beforeTestMethod, but not beforeGroups): If set to true, this configuration method will be run regardless of what groups it belongs to. For after methods (afterSuite, afterClass, …​): If set to true, this configuration method will be run even if one or more methods invoked previously failed or was skipped.
+
+
+2) enabled
+
+Whether methods on this class/method are enabled.
+
+3) groups
+
+The list of groups this class/method belongs to.
+
+4) dependsOnGroups
+
+The list of groups this method depends on.
+
+5) dependsOnMethods
+
+The list of methods this method depends on.
+
+6) invocationCount
+
+The number of times this method should be invoked.
+
+7) threadPoolSize
+
+The size of the thread pool for this method. The method will be invoked from multiple threads as specified by invocationCount. NOTE: this attribute is ignored if invocationCount is not specified
+
+8) invocationTimeOut
+
+The maximum number of milliseconds this test should take for the cumulated time of all the invocationcounts. This attribute will be ignored if invocationCount is not specified.
+
+9) priority
+
+The priority for this test method. Lower priorities will be scheduled first.
+
+
+10) timeOut
+
+The maximum number of milliseconds this test should take.
+
