@@ -1,0 +1,523 @@
+
+##########################################################
+
+https://cucumber.github.io/cucumber-eclipse/update-site - plugin
+
+
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-testng</artifactId>
+    <version>7.15.0</version>
+</dependency>
+
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-java</artifactId>
+    <version>7.15.0</version>
+</dependency>
+
+##########################################################
+What is a BDD Framework?
+
+Behavior-Driven Development (BDD) is an agile software development methodology that enhances collaboration between developers, testers, and non-technical stakeholders (like business analysts) to ensure that everyone shares a common understanding of how an application should behave. Here are some key points:
+    
+Focus on Behavior:
+BDD emphasizes specifying the expected behavior of software using natural language. This makes requirements more accessible and understandable to all team members.
+
+Collaboration:
+It promotes close communication among team members, reducing the gap between technical implementation and business requirements.
+
+Living Documentation:
+By writing scenarios in plain language, the test cases serve as documentation that evolves with the application, ensuring that they always reflect the current state of the system.
+
+Shift-Left Testing:
+BDD encourages early testing during the development process, which helps in identifying issues sooner and ensures that the development aligns with business expectations.
+  
+####################################
+ 
+🔹 TDD – Test-Driven Development
+
+Who drives it? Developers
+What comes first? Unit tests before writing actual code.
+
+🔁 Flow:
+Developer writes a failing test → Writes minimum code to pass the test → Refactors the code → Test passes → Code is complete.
+
+⛳ Connection to Shift Left:
+
+1)Testing starts even before implementation.
+
+2)Bugs are caught early in the dev phase, reducing cost and rework.
+
+Example: Writing a failing test case → writing code to pass the test → refactoring.
+
+🔧 Tools:
+JUnit, TestNG, Mockito
+
+🔹 ATDD – Acceptance Test-Driven Development
+
+Who drives it? Collaboration of Dev, QA, and Business
+What comes first? Acceptance criteria (tests) are defined before dev begins.
+
+🔁 Flow:
+→ Product Owner defines acceptance → Dev builds → Test validates → Feature accepted
+
+⛳ Connection to Shift Left:
+
+1)Tests are aligned with business goals from the beginning.
+
+2)Encourages early collaboration.
+
+3)Ensures development is testable and meets user expectations.
+
+🔧 Tools:
+FitNesse, Robot Framework
+
+
+
+🔹 BDD – Behavior-Driven Development
+
+Who drives it? Product Owners, Testers, and Developers
+What comes first? User behaviors described in Gherkin format (Given-When-Then)
+
+🔁 Flow:
+→ Discuss behaviors → Write scenario in Cucumber → Dev writes code to satisfy it
+
+⛳ Connection to Shift Left:
+
+1)Encourages conversation and shared understanding before coding.
+
+2)Enhances test coverage early in development.
+
+3)Scenarios written in plain language → drives both development and testing.
+
+🔧 Tools:
+Cucumber, JBehave, SpecFlow
+
+####################################
+
+How Does Cucumber Help Implement BDD?
+
+Cucumber is a popular tool that facilitates the implementation of BDD by providing a structured yet flexible approach to writing and executing tests. Here’s how Cucumber supports BDD:
+
+Gherkin Syntax:
+
+Gherkin is a domain-specific language (DSL) designed specifically for Behavior-Driven Development (BDD). It enables writing test scenarios in a plain, structured, and human-readable format, bridging the gap between technical teams and non-technical stakeholders.
+
+Test Attributes :  TS ID [Feature] ,TC ID , TC description[Scenario] , precondition[Given] , steps (test data)[When] ,ER , AR [Then], Status , Defect ID 
+
+
+
+Feature Files:
+
+
+These files contain scenarios that describe the expected behavior of the application using keywords makes it easy to understand what is being tested and why.
+
+Keywords Summary :
+
+#Feature: List of scenarios.
+#Scenario: Business rule through list of steps with arguments.
+#Given: Some precondition step
+#When: Some key actions(user interactions(keyboard or mouse events))
+#Then: To observe outcomes or validation
+#And,But: To enumerate more Given,When,Then steps
+#Scenario Outline: List of steps for data-driven as an Examples and <placeholder>
+#Examples: Container for s table
+#Background: List of steps run before each of the scenarios
+#""" (Doc Strings)
+#| (Data Tables)
+#@ (Tags/Labels):To group Scenarios
+#<> (placeholder)
+#""
+## (Comments)
+
+Step Definitions:
+Each line in a Gherkin scenario is linked to a corresponding code block (step definition). These methods, written in a programming language like Java, perform the actual testing actions (e.g., interacting with the application, verifying outcomes).
+
+Integration with Testing Frameworks:
+Cucumber integrates seamlessly with frameworks such as JUnit, TestNG (in Java) to run tests. This integration allows teams to leverage familiar testing tools while using a BDD approach.
+
+Hooks for Pre/Post Conditions:
+Cucumber provides hooks (e.g., @Before and @After) to run code before and after each scenario. This is useful for setup (like launching a browser) and teardown tasks (like taking screenshots or closing connections).
+
+Living Documentation & Reporting:
+Since scenarios are written in plain language, they double as documentation. Additionally, Cucumber’s reporting features (like JVM or HTML reports) help teams track test execution and quality metrics.
+
+################################################################
+
+History of Cucumber
+Cucumber’s Evolution:
+
+Origins in Ruby (2008):
+Cucumber was created by Aslak Hellesoy in 2008 as an open-source tool for acceptance testing(UAT), primarily targeting the Ruby community. It was developed in response to the growing need for a more collaborative testing approach that would make test scenarios understandable to non-programmers.
+
+Rise of BDD:
+The emergence of BDD, driven by thought leaders like Dan North, influenced Cucumber’s development. BDD’s emphasis on clear communication and behavior specification aligned perfectly with what Cucumber was designed to do.
+
+Expansion to Multiple Languages:
+Recognizing the broader appeal of BDD, Cucumber evolved beyond Ruby. Implementations like Cucumber-JVM were introduced, allowing teams working in Java and other languages to adopt BDD practices. This expansion helped Cucumber become a versatile and widely adopted testing tool across different development ecosystems.
+
+
+
+In Summary
+
+BDD is a methodology that emphasizes collaboration and shared understanding through behavior-focused, human-readable test scenarios.
+Cucumber implements BDD by using Gherkin syntax to write feature files, mapping these to executable code with step definitions, and integrating with standard testing frameworks. It also provides hooks and detailed reporting to streamline the testing process.
+Cucumber’s History begins in 2008 within the Ruby community, growing alongside the BDD movement and expanding its support to multiple programming languages, making it a cornerstone tool in modern agile testing practices.
+
+
+###################################################################################
+
+  
+------------------------------------------------------------------------------------------------------------------------
+| Layer               | Location in Maven Project            | Reason for this Location                                   |
+----------------------------------------------------------------------------------------------------------------------
+| Feature Files       | src/test/java/features/             | - Maven treats src/test/java/ as the standard        |
+| (.feature)         |                                      |   folder for test resources.                              |
+|                    |                                      | - Feature files are not Java code but test data, so they  |
+|                    |                                      |   do not need to be compiled.                            |
+|                    |                                      | - Cucumber automatically looks for .feature files here.  |
+---------------------------------------------------------------
+| Step Definitions   | src/test/java/steps/                 | - Step definitions are Java code and must be compiled,   |
+|                    |                                      |   so they go inside src/test/java/.                      |
+|                    |                                      | - Keeping them separate from feature files maintains     |
+|                    |                                      |   separation of concerns.                                |
+|                    |                                      | - Makes it easier to debug and maintain test logic.      |
+---------------------------------------------------------------
+| Test Runner        | src/test/java/runner/                | - The test runner (TestNG, JUnit, or Cucumber.class) is  |
+|                    |                                      |   an entry point for execution.                          |
+|                    |                                      | - Needs to be inside src/test/java/ because it's Java    |
+|                    |                                      |   code and should be compiled.                          |
+|                    |                                      | - Placing it in runners/ keeps it separate from step     |
+|                    |                                      |   definitions.                                           |
+---------------------------------------------------------------
+| Base Class        | src/test/java/base/                  | - The BaseClass is a common utility class (e.g.,        |
+|                   |                                      |   WebDriver setup).                                      |
+|                   |                                      | - Placing it in base/ prevents duplication and allows   |
+|                   |                                      |   all step definitions to inherit from it.              |
+|                   |                                      | - Ensures better modularity and reusability.            |
+---------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+###################################################################################
+
+$$$Feature Files:
+These files contain scenarios that describe the expected behavior of the application using keywords such as
+
+Feature:
+Describes the high-level functionality or user story. It sets the overall context for what is being automated.
+
+Background:
+Contains common steps or preconditions that are run before each scenario in the feature. It acts as the pre-match routine for every test.
+
+Scenario:
+Defines a specific test case or example of behavior. It outlines a clear, step-by-step plan for one particular situation.
+
+Scenario Outline:
+Similar to a Scenario but used to run the same test steps with different sets of input data. It helps in testing variations of a scenario.
+
+Examples:
+A table of data provided for a Scenario Outline, offering multiple sets of values to test the same scenario under different conditions.
+
+Given:
+Sets up the initial context or preconditions for the test, ensuring that the environment is ready before actions are performed.
+
+When:
+Describes the action or event that triggers the behavior within the test scenario.
+
+Then:
+Specifies the expected outcome or result after the action is taken.
+
+And:
+Connects additional steps to the Given, When, or Then clauses, adding further details or conditions.
+
+But:
+Introduces exceptions or alternative outcomes to the main steps, describing what should happen if conditions change.
+
+Data Tables:
+Provide structured input data for the scenario. They are used to supply detailed metrics or multiple parameters in a tabular format.
+
+Doc Strings:
+Allow the inclusion of multi-line text blocks for detailed instructions or additional context, similar to extended notes.
+
+Comments:
+Non-executable lines (usually starting with #) that offer extra context or clarifications without affecting the test execution.
+
+How to name a feature file :
+
+Best Practices
+
+✅ Avoid spaces and special characters (use - instead).
+✅ Use meaningful and readable names to reflect the purpose.
+✅ Keep file names under 30-40 characters for readability.
+✅ Organize feature files logically (e.g., src/test/java/features/user-login.feature).
+
+
+| Element                     | Casing Style  | Example                                      |
+|-----------------------------|-------------- |----------------------------------------------|
+| Feature Name                | Title Case    | Feature: User Authentication                |
+| Scenario Name               | Title Case    | Scenario: Successful Login with Valid Credentials |
+| Step Definitions  	        | Sentence case | Given the user is on the login page        |
+(Given/When/Then/And/But)   
+| Tags 			      | PascalCase    | @SmokeTest @RegressionTest       	|
+(@SmokeTest, @RegressionTest)
+
+
+Explanation of Casing Standards
+
+✅ Feature & Scenario Titles → Title Case
+Use Title Case (capitalize first letter of each major word).
+This improves readability and follows software documentation best practices.
+
+example: 
+
+Feature: User Authentication  
+Scenario: Successful Login with Valid Credentials 
+
+
+✅ Steps (Given/When/Then/And/But) → Sentence case
+
+proper nouns should be capitalized.
+Keep the rest of the sentence in lowercase, unless referencing proper nouns.
+
+Example:
+
+Given the user enters the username as "demosalesmanager"
+And the user enters the password as "crmsfa"
+When the user clicks the login button
+Then the user should be redirected to the homepage
+
+------------------------------------------------------------------
+
+# Feature: Cricket Championship Final at Eden Gardens
+Feature: Cricket Championship Final at Eden Gardens
+
+# Background: Common pre-match routine for every game
+Background:
+  # Ensure the team is warmed up and the pitch is inspected before any play
+  Given the team has completed the warm-up
+  And the pitch has been inspected and approved by the coach
+
+# Scenario: Opening Batsman Hits a Six on the First Ball
+Scenario: Opening Batsman Hits a Six on the First Ball
+  # Pre-match condition: The pitch is in excellent condition.
+  Given the pitch is in excellent condition
+  When the bowler runs in and delivers a perfect ball
+  Then the batsman should hit a six to kick off the match with momentum
+  And the crowd erupts in cheers
+  # If the ball swings unexpectedly, adjust the shot accordingly.
+  But if the ball swings unexpectedly, the batsman should adjust his shot
+
+# Scenario Outline: Testing Batting Strategy under Various Conditions
+Scenario Outline: Testing Batting Strategy under Various Conditions
+  Given the team is ready on the field
+  When the bowler delivers the ball under <condition>
+  Then the batsman should adapt his shot accordingly
+  And the performance is recorded
+
+  # Record additional performance metrics using a Data Table:
+  And record the following performance details:
+    | metric         | value   |
+    | runs scored    | <runs>  |
+    | balls faced    | <balls> |
+    | boundaries hit | <boundaries> |
+
+  # Provide detailed strategy notes using a Doc String:
+  And the coach's note is:
+    """
+    The batting strategy must adjust based on the bowler type and pitch conditions.
+    Monitor the batsman's footwork and shot selection closely.
+    Ensure the fielders are optimally positioned for catching or stopping runs.
+    """
+
+  # Examples for running the same test with different match conditions:
+Examples:
+  | condition               | runs | balls | boundaries |
+  | dry pitch, fast bowler  | 6    | 1     | 1          |
+  | humid pitch, spinner    | 4    | 2     | 0          |
+
+
+--------------------------------------------------------------------------------
+$$$Step Definitions:
+
+Step Definitions translate the human-readable steps (written in Gherkin in your feature files) into executable code. This means that each instruction like "Given the team is ready" or "When the bowler delivers the ball" is linked to a Java method that contains the actual code to perform that action. They ensure that the test scenarios described in plain language are effectively carried out by your automation scripts.
+
+For every step in your feature file, there is a corresponding Java method. These methods are usually annotated with Cucumber expressions (or regular expressions) that match the text of the step.
+
+This precise mapping makes sure that when Cucumber reads the step "the team is ready" in the feature file, it knows to run the teamIsReady() method. This tight coupling ensures that your natural language instructions are directly tied to concrete actions in your test code.
+
+
+
+Football Analogy for BDD 🏆⚽
+Imagine you’re the coach of a football team preparing for a big match. You have a detailed game plan (your feature file) that describes every strategy in a way that both the players (technical team) and management (non-technical team) can understand.
+
+📖 The Game Plan (Feature File)
+Your game plan includes high-level strategies written in simple language, like:
+
+Given the team is in an attacking formation
+When the striker receives the ball near the penalty box
+Then the striker should take a shot on goal
+This is similar to a feature file in BDD—it outlines what should happen without specifying how it should happen.
+
+🎯 Assigning Roles (Step Definitions)
+Now, as a coach, you don’t just tell players what to do; you give them specific instructions on how to execute these plays.
+
+For example:
+
+If the game plan says, "When the striker receives the ball near the penalty box,"
+The step definition is like telling the striker:
+"Control the ball with your dominant foot, keep your eyes on the goal, and shoot with an inside curl technique."
+This is how step definitions work in automation—they translate the plain language instructions into precise, executable actions (Java methods, Selenium steps, etc.).
+
+
+----------------------------------------------------------------
+$$$Test Runner Class
+
+
+
+Purpose:
+The Test Runner Class is the central piece that integrates Cucumber with TestNG. It acts as the bridge that enables the test scenarios written in Gherkin (plain language) to run as TestNG tests.
+
+How It Works:
+When you execute your tests, TestNG invokes the Test Runner Class, which in turn leverages Cucumber to read the feature files and execute the corresponding step definitions. This seamless integration ensures that your BDD scenarios are automatically run within the TestNG framework.
+
+@CucumberOptions Annotation
+This annotation customizes how Cucumber executes your tests. Here are the key attributes:
+ 
+1)features:
+
+Definition:
+Specifies the path to the feature file(s) containing your Gherkin scenarios.
+Usage:
+Directs Cucumber to the files that define your user stories and test cases, ensuring the correct scenarios are picked up for execution.
+
+2)glue:
+
+Definition:
+
+Points to the package(s) where the step definitions are located (Java methods that correspond to the Gherkin steps).
+
+Usage:
+Ensures that Cucumber can match the plain language steps in your feature files with the correct Java code that implements them.
+
+3)dryRun:
+
+Definition:
+A boolean flag that checks if every step in the feature files has a corresponding step definition.
+
+Usage:
+
+When set to true, Cucumber scans all steps without executing them, listing any missing implementations. This is particularly useful during initial test development to ensure full coverage.
+
+
+
+
+4)plugin:
+
+Definition:
+Specifies the format and location for the test execution reports, such as JVM or HTML reports.
+Usage:
+By configuring plugins, you control how the output is presented:
+
+Pretty: Provides a human-readable console output of executed scenarios.
+
+Usage: Can also present data in structured formats like key-value pairs or JSON-like formats, which are helpful for detailed analysis.
+
+
+
+Real World Cricket Analogy
+
+Imagine you're the head coach for your local cricket team, preparing for a major tournament. Your game strategy booklet is your central plan that everyone—players, support staff, and even the fans—can understand. Here's how the components map:
+
+Test Runner Class:
+
+Think of the Test Runner Class as the match coordinator or the team manager who takes the overall game plan and ensures that every player knows their role during the match. This coordinator translates the high-level strategy (your Gherkin scenarios) into on-field actions (TestNG tests).
+
+@CucumberOptions Attributes:
+
+1)feature:
+
+Cricket Analogy:
+
+This is like the section in your strategy booklet that details the match plans. It includes the different plays and tactics you intend to use, much like listing the various game situations (e.g., powerplay strategies, batting orders) that will be employed during the match.
+
+2)glue:
+
+Cricket Analogy:
+
+This attribute is akin to assigning specific roles and responsibilities to each player. Just as the coach instructs bowlers, batsmen, and fielders on their specific tasks, the glue tells Cucumber where to find the Java methods (step definitions) that execute these instructions.
+
+3)dryRun:
+
+Cricket Analogy:
+
+Imagine conducting a full dress rehearsal before the big game. During this rehearsal, you walk through each play without actually competing in a match to ensure every player knows what to do. If a player (or a play) is missing instructions, you identify and fix it before the actual match starts. Similarly, setting dryRun to true verifies that every play in your strategy (step in your feature file) has a corresponding instruction (step definition).
+
+4)plugin:
+
+Cricket Analogy:
+
+After the match, you need detailed reports and statistics to analyze performance. The plugin attribute works like your match report system—it collects and formats data about the game (e.g., scores, player performance) into reports that are easy to review. Whether it’s a simple score summary (pretty output) or a detailed analysis (structured report), the plugin ensures you have the right information to assess the performance.
+
+
+-----------------------------------------------------------------------
+
+Reporting in Test Automation
+
+Purpose:
+
+Reporting is essential because it provides insights into test execution, showing what passed, what failed, and offering metrics that help assess the quality and stability of the application.
+
+Cucumber Report Integration:
+
+In a typical Cucumber setup, you configure your runner class (using @CucumberOptions) to specify report plugins (like HTML or JSON reports). These plugins are then used by Cucumber to generate detailed execution reports for your feature files.
+
+1)JVM & HTML Reports:
+
+The JVM report (with detailed logs and metrics) and the HTML report (with a user-friendly summary) are commonly generated by Cucumber’s reporting tools. They serve the purpose of summarizing the results of your BDD tests.
+
+2)Report Builder Class & @AfterClass:
+
+In many Cucumber projects, especially those that extend reporting capabilities, a dedicated Report Builder class is used to collate the results. The @AfterClass annotation ensures that report generation happens after all Cucumber scenarios have executed.
+
+
+
+Cricket Analogy
+
+Imagine you’re the coach of a cricket team, and after a hard-fought match, you need to prepare a detailed post-match analysis to review the performance. Here's how each element maps:
+
+1)JVM Report: The Detailed Match Analysis Book
+
+Definition & Usage:
+
+Think of the JVM report as the in-depth match analysis book that contains every detail of the game: ball-by-ball commentary, player statistics, fielding errors, and insights into each over. Just as this book helps you analyze where things went right or wrong, the JVM report provides comprehensive logs and metrics to identify issues in your test execution.
+
+2)HTML Report: The Highlight Reel and Scoreboard
+
+Definition & Usage:
+
+The HTML report is like the match highlight reel and scoreboard that you can share with fans and team management. It gives a clear, visual summary of the game—showing runs scored, wickets taken, and key moments in a visually appealing format. This makes it easy for stakeholders to quickly grasp the outcome without diving into the minute details.
+
+3)Report Builder Class: The Post-Match Press Conference Setup
+
+Purpose & Key Functions:
+
+Imagine the report builder class as the process of setting up a post-match press conference. You configure the venue (path configuration), set up the presentation with the team’s name and match details (file reference setup), and include metadata like the match number, weather conditions, and player performances (classification). This press conference collates all the information and delivers a comprehensive overview of the match.
+
+
+@AfterClass Annotation: The Final Whistle
+
+Purpose & Usage:
+
+The @AfterClass annotation is like the final whistle of the match, signaling that the game has ended and it’s time to compile all the match statistics and analysis. Only once every play is completed do you gather all the information to generate the final report, ensuring that nothing is missed.
+
+##############################################################################################################
