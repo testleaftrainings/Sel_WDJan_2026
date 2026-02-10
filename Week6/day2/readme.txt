@@ -14,7 +14,7 @@ ex:---
 	}
 
 
-
+=========================================================
 Dynamic Parameterization IMPLEMENTATION – STEPS in Cucumber 
 ---------------------------------------------------------
 Scenario Outline with Examples
@@ -52,8 +52,9 @@ Step Definition File – Steps to Follow
 
 ---------------------------------------------------------
 HOOK IMPLEMENTATION – STEPS in Cucumber
+=========================================================
 
-1.reate a HooksImplementation class inside hooks package
+1.Create a HooksImplementation class inside hooks package
 2.Mark the class as part of Cucumber execution
 ex :---
 @CucumberOptions(features = {"src/test/java/features"}, 
@@ -61,19 +62,23 @@ glue = {"steps","hooks"})
 3.Add a Before & After Hook annotation inside  HooksImplementation class 
 4.Decide what action should run before every scenario & should run after every scenario
 (example: launch browser, open application , close browser)
+5.Create CommonBase class  inside steps package, move the driver declaration from StepDefinition Class to CommonBase Class
+6.Make driver variable as static
+7.StepDefinition Class and HooksImplementation class should inherit CommonBase
 
 
 ---------------------------------------------------------
 TestNG IMPLEMENTATION – STEPS in Cucumber
-
+=========================================================
 
 
 1.Exclude the hooks package from  Cucumber execution
 ex :--- 
 @CucumberOptions(features = {"src/test/java/features"}, 
-glue = {"steps")
-2.In CommonBase class inside inside step definition package Declare two methods precondition and postCondition with TestNG annotations @BeforeMethod and @AfterMethod
+glue = {"steps"})
+2.In CommonBase Class Declare two methods precondition and postCondition with TestNG annotations @BeforeMethod and @AfterMethod move common actions here (example: launch browser, open application , close browser)
 3.Runner class should inherit CommonBase
 4.CommonBase should inherit AbstractTestNGCucumberTests
+
 
 =========================================================
