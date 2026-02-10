@@ -1,0 +1,241 @@
+
+
+Recap : 
+
+1)TestNG : Dynamic Parameterization/ read Excel / Common Integration(static + dynamic(data driven testin)+ cross browser testing)
+2) Cucumeber BDD : 3 Layers of cucumber BDD [Feature(Gherkin keyword) + StepDef (selenium java)+ Runner(AbstractTestNGCucumberTests)]
+
+
+ 
+
+###############################
+What is a BDD Framework?
+
+Behavior-Driven Development (BDD) is an agile software development methodology that enhances collaboration between developers, testers, and non-technical stakeholders (like business analysts) to ensure that everyone shares a common understanding of how an application should behave. Here are some key points:
+    
+Focus on Behavior:
+BDD emphasizes specifying the expected behavior of software using natural language. This makes requirements more accessible and understandable to all team members.
+
+Collaboration:
+It promotes close communication among team members, reducing the gap between technical implementation and business requirements.
+
+Living Documentation:
+By writing scenarios in plain language, the test cases serve as documentation that evolves with the application, ensuring that they always reflect the current state of the system.
+
+Shift-Left Testing:
+BDD encourages early testing during the development process, which helps in identifying issues sooner and ensures that the development aligns with business expectations.
+
+#######################################################
+
+Dynamic Parameterization : 
+________________________________________
+🧩 1. Cucumber Expressions vs Regex
+
+Cucumber supports two ways to write step definitions:
+
+Type Example         | in StepDef        | Behavior
+---------------------------------------------------------------
+Cucumber Expression  | {int}, {string}   | Clean syntax, auto type-conversion
+Regex                | (.+), (\\d+), (.*)| Classic Java regex, more flexible but verbose
+
+
+📌 2. Matching {int} vs (.*) or (.+)
+
+Pattern             | Description                        | Accepts empty input? | Data type
+-----------------------------------------------------------------------------------------
+{int}               | Cucumber expression for integers   | ❌ No                | int / Integer
+{string}            | Cucumber expression for strings    | ✅ Yes               | String
+(.*) (regex)        | Regex match: 0 or more characters  | ✅ Yes               | String
+(.+) (regex)        | Regex match: 1 or more characters  | ❌ No                | String
+
+
+🔄 3. int vs Integer in Step Definitions
+
+Type       | Description           | Accepts null? | Use When
+-----------------------------------------------------------------
+int        | Primitive type        | ❌ No          | Input is always present & numeric
+Integer    | Wrapper class for int | ✅ Yes         | Input may be optional/missing
+
+
+🧪 4. Examples Table with Empty or Optional Data
+
+Scenario Outline: Phone input
+  When The user enters phoneno as <phoneno>
+
+Examples:
+  | phoneno    |
+  | 882578     |
+  |            |  # Empty input
+
+
+🧪 5. Regex Pattern for Optional Value
+
+Pattern: ^The user enters phoneno as(?: (\\d+))?$
+✅ Supports optional digits
+⛔ Doesn't work with Cucumber Expressions
+
+
+🧠 6. Best Practice Summary
+
+Use Case                          | Pattern to Use                          | StepDef Param Type
+-------------------------------------------------------------------------------------------
+Always numeric and required       | "The user enters phoneno as {int}"      | int or Integer
+Might be empty or optional       | "The user enters phoneno as {string}"   | String
+Want regex flexibility           | "^The user enters phoneno as(?: (\\d+))?$" | String
+Want clean + type-safe           | Use Cucumber Expressions ({int}, {string}) | As per placeholder
+
+
+✅ Final Recommendation
+
+For 99% of cases:
+• Use Cucumber Expressions ({int}, {string})
+• Handle optional input with {string} and null/empty checks
+• Avoid int unless value will always be present
+
+___________________________________________________________
+✅ Best Practice
+
+Always end regex-based Cucumber steps with $ unless you intentionally want to allow "extra" text after the match.
+
+✅ Recommended:
+
+@When("The user enters phoneno as (.*)$")
+
+This makes your step definitions:
+
+1)Precise
+
+2)Predictable
+
+3)Less error-prone
+
+
+
+###################################################################################
+
+$$$Hooks
+
+Hooks are special methods in Cucumber that execute at specific points during the test lifecycle. They help set up preconditions or perform cleanup actions without cluttering the step definitions.
+
+Hooks Implementation
+Cucumber annotations 
+- @Before -> Before annotation execute before executing each scenario 
+- @After -> After annotation execute after each scenario
+
+        - @BeforeStep - It will execute before each test step 
+        - @AfterStep - It will execute after each test step
+
+
+Execution flow with hooks annotations
+  -> @Before
+     -> Background keyword
+      -> Scenario /Scenario Outline -> @BeforeStep -> @AfterStep
+        -> @After
+
+Cricket Analogy:
+
+A)@Before Hook
+
+Purpose:
+
+Execution Timing: Runs before each scenario.
+
+Usage:
+
+Initializes test prerequisites, such as launching a browser.
+Sets up test data or configures the environment.
+Prepares the system for the scenario that is about to run.
+
+Think of the @Before hook as the pre-match warm-up and briefing session:
+
+Pre-Match Warm-Up: Just as a cricket team warms up to get into the right physical and mental state before a match, the @Before hook sets up the necessary environment (like launching a browser or initializing data) before any test scenario starts.
+
+Team Briefing: The coach gathers the team to review the game plan, ensuring everyone knows their role and responsibilities—similar to how the @Before hook ensures that all prerequisites are met before the scenario runs.
+
+B)@After Hook
+
+Purpose:
+
+Execution Timing: Runs after each scenario.
+
+Usage:
+
+Performs cleanup tasks such as closing browser sessions.
+Takes screenshots (especially useful when a test fails).
+Resets test data or environment to a clean state for subsequent tests.
+
+Cricket Analogy:
+
+Imagine the @After hook as the post-match debrief and cleanup:
+
+Post-Match Cool Down: After the match, players cool down, stretch, and review their performance. This is akin to the @After hook’s role in tidying up after a test scenario—closing sessions, collecting data (like screenshots), and resetting the state.
+
+Debriefing Session: The coach holds a meeting to discuss what went well and what needs improvement, which parallels how the @After hook gathers results and cleans up, ensuring the next test (or match) starts fresh.
+
+Steps to implement hooks annotations
+  1. create a class as HooksImplementation under hooks package
+  2. Declare two methods preCondition and postCondition with Hooks/cucumber annotations @Before and @After
+  3. HooksImplementation should inherit CommonBase
+  4. In the runner hooks package also include in glue attribute.
+
+
+
+#########################################################################################
+
+$$$Base Class
+
+Definition:
+
+A Base Class is a superclass that contains common methods, configurations, and utilities that are shared across different step definition classes. It centralizes functionalities like browser setup, teardown methods, and utility functions, ensuring that repetitive code is written only once.
+
+Purpose:
+
+Code Reusability: By placing shared functionalities in the Base Class, you avoid duplicating code across multiple classes.
+
+Maintainability: Updates or changes (for example, a change in browser configuration) need to be made in just one place, simplifying maintenance.
+
+Consistency: Ensures that all tests start with the same setup and configurations, leading to uniform behavior across the test suite.
+
+
+
+static keyword
+ 
+single memory reference - share the memory as single all the object reference across the project
+inside the non static methods it allows all the members of the class (static variable , non-static variable, static method, non-static method) directly without the help of object reference.
+inside the static method it allow to call only the static members(static variable and static method) without object reference
+
+
+
+Cricket Analogy:
+
+Imagine the Base Class as the standardized training regimen and game strategy shared by an entire cricket team.
+
+Standardized Training: Just as every player follows the same training routines—like warming up, practicing specific drills, or using a common set of strategies—the Base Class provides a unified set of instructions (like launching the browser or configuring environment settings) that every test (or “player”) uses.
+
+Uniform Game Strategy: The coach's playbook is shared among all players. No matter which player is on the field, they all adhere to the same tactics and guidelines. Similarly, the Base Class ensures that every test scenario starts on a level playing field with the same configurations and utilities.
+
+TestNG Implementation in Cucumber
+
+
+1)Remove the Hooks annotations @Before and @After
+2)In ProjectSpecificMethod Declare two methods precondition and postCondition with TestNG annotations @BeforeMethod and @AfterMethod
+3)Runner class should inherit ProjectSpecificMethod
+4)ProjectSpecificMethod should inherit AbstractTestNGCucumberTests
+
+
+
+
+
+____________________________________________________________
+Summary
+Each component in Cucumber BDD with Java is designed to promote clarity, reusability, and maintainability:
+
+1)Maven and pom.xml manage your project and its dependencies.
+2)The Test Runner Class (@CucumberOptions) links feature files to the underlying code.
+3)Feature Files written in Gherkin offer a readable description of the test scenarios.
+4)Step Definitions map these scenarios to executable code.
+5)Hooks (@Before and @After) manage pre- and post-test actions.
+6)Base ensure that common functions.
+7)Report Generation captures and presents the results of test executions in both JVM and HTML formats, ensuring stakeholders have access to detailed test insights.
+
+-----------------------------------------------------------
