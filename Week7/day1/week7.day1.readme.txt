@@ -1,0 +1,200 @@
+
+Extent Report Introduction
+--------------------------------------------------------------------------------------
+
+
+<dependency>
+    <groupId>com.aventstack</groupId>
+    <artifactId>extentreports</artifactId>
+    <version>3.1.5</version>
+</dependency>
+
+--------------------------------------------------------------------------------------
+
+Important Class within ExtentReports Library :
+
+
+-Extenthtmlreporter--> used to create physical HTML report
+         -ExtentReports-----> to capture the automation data and attach to physical file
+                  -ExtentTest---> To create TC in report and capture TC status
+-MediaEntityBuilder----> To attach Screenshot to report
+
+
+--------------------------------------------------------------------------------------
+
+Steps to Generate Extent Report
+
+Step 1: Set Physical Report Path
+
+Example Path: Right-click the project → New → Folder → Name it as "reports".
+
+ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("./reports/result.html");  
+
+// To keep the history 
+htmlReporter.setAppendExisting(true); 
+ 
+
+
+Step 2: Create ExtentReports Object
+
+ExtentReports extent = new ExtentReports(); 
+ 
+Step 3: Attach Reporter to ExtentReports
+
+extent.attachReporter(htmlReporter);  
+
+Step 4: Create a Test & Assign Details
+
+ExtentTest test1 = extent.createTest("CreateLead", "Create Lead with mandatory info");  
+test1.assignCategory("Sanity");  
+test1.assignAuthor("Bhuvanesh");  
+
+
+
+Step 5: Add Test Logs (Pass/Fail Status)
+
+test1.pass("Enter username");  
+test1.pass("Enter password");  
+test1.fail("Click Login button");  
+
+Step 6: Flush the Report (Mandatory)
+
+extent.flush();  
+---------------------------------------------------------
+create a unique name for report:
+
+using LocalDateTime and DateTimeFormatter java class.
+
+-----------------------------------------------------------------
+| Pattern | Symbol Description                  | Example Output|
+|---------|-------------------------------------|---------------|
+| yyyy    | 4-digit year                        | 2025          |
+| yy      | 2-digit year                        | 25            |
+| MMMM    | Full month name                     | March         |
+| MMM     | Abbreviated month name              | Mar           |
+| MM      | 2-digit month (01-12)               | 03            |
+| M       | Month (1-12)                        | 3 (March)     |
+| dd      | 2-digit day (01-31)                 | 26            |
+| d       | Day (1-31)                          | 5             |
+| HH      | 2-digit hour (00-23, 24-hour format)| 18            |
+| hh      | 2-digit hour (01-12, 12-hour format)| 06            |
+| mm      | 2-digit minute (00-59)              | 30            |
+| ss      | 2-digit second (00-59)              | 45            |
+| SSS     | 3-digit millisecond                 | 789           |
+| a       | AM/PM marker                        | PM            |
+| E       | Day of week (short)                 | Wed           |
+| EEEE    | Full day of week                    | Wednesday     |
+| zzz     | Timezone abbreviation               | IST           |
+| Z       | Timezone offset                     | +0530         |
+-----------------------------------------------------------------
+Example Combinations:
+
+yyyy-MM-dd HH_mm_ss → 2025-03-26 18:30:45
+
+dd/MM/yyyy hh_mm_ss a → 26/03/2025 06:30 PM
+
+EEE, MMM dd, yyyy → Wed, Mar 26, 2025
+
+Notes:
+
+Case Sensitivity: Patterns like MM (month) vs mm (minutes) are case-sensitive.
+
+Literal Text: Use single quotes to escape text:
+
+-------------------------------------------------------
+try-catch-finally blocks: 
+
+In Java, the try-catch-finally construct is a fundamental mechanism for handling exceptions—unexpected events that disrupt the normal flow of a program. It comprises three primary blocks:​
+
+1)try Block:
+
+Contains code that might throw an exception.​
+
+If an exception occurs within this block, the subsequent catch block(s) are examined to find a matching exception type.​
+
+2)catch Block:
+
+Follows the try block and handles specific exceptions thrown within the try block.​
+
+Multiple catch blocks can be used to handle different types of exceptions.​
+
+Each catch block specifies the exception type it can handle.​
+
+3)finally Block:
+
+An optional block that follows the try or catch blocks.​
+
+Contains code that is always executed after the try and catch blocks, regardless of whether an exception was thrown or caught.​
+
+Typically used for cleanup operations, such as closing files or releasing resource
+--------------------------------------------------------
+############################################
+
+TestNG Listeners — 
+
+TestNG Listeners are interfaces that allow you to listen to test execution events and inject custom behavior without modifying test code.
+
+Think of them as surveillance cameras inside the TestNG lifecycle — they observe what happens and let you react programmatically.
+
+They help you:
+
+    Customize execution flow
+
+    Add logging/reporting
+
+    Capture screenshots on failure
+
+    Modify test behavior dynamically
+
+    Implement retry logic
+
+    Control annotations at runtime
+
+Commonly Used Listeners
+
+          ITestListener → test start, success, failure, skip events
+
+          ISuiteListener → suite execution start/end
+
+          IInvokedMethodListener → before & after every method
+
+          IReporter → custom report generation
+
+          IAnnotationTransformer → modify TestNG annotations at runtime
+
+          IAnnotationTransformer — The Special One
+
+This listener works before TestNG executes any test.
+
+Instead of reacting to execution events, it allows you to change test metadata dynamically — meaning you can modify annotations like @Test programmatically.
+In simple terms:
+
+It edits the test configuration before the test engine reads it.
+Why is it powerful?
+
+Normally annotations are static:
+
+@Test(retryAnalyzer = Retry.class)
+
+
+But what if:
+
+you want retry logic applied to all tests automatically?
+
+you don’t want developers to remember adding retry analyzers?
+
+execution behavior must change dynamically?
+
+That’s where IAnnotationTransformer steps in.
+
+Core Method
+public void transform(
+    ITestAnnotation annotation,
+    Class testClass,
+    Constructor testConstructor,
+    Method testMethod)
+
+
+This method runs for every test method discovered by TestNG.
+
+##############################################
